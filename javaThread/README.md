@@ -1,0 +1,1 @@
+线程问题，继承Thread和实现Runnable接口
