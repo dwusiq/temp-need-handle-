@@ -1,0 +1,49 @@
+group 'springQuartz'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def defaultEncoding = 'UTF-8'
+
+repositories {
+    maven { url "https://mvnrepository.com" }
+    mavenLocal()
+    mavenCentral()
+}
+
+List servlet = ['javax.servlet:javax.servlet-api:3.1.0']
+
+List apache_commons = [
+        "commons-codec:commons-codec:1.9",
+        "commons-io:commons-io:2.5",
+        "org.apache.commons:commons-lang3:3.4"
+]
+
+def spring_version="4.0.5.RELEASE"
+List spring =[
+        "org.springframework:spring-core:$spring_version",
+        "org.springframework:spring-beans:$spring_version",
+        "org.springframework:spring-aop:$spring_version",
+        "org.springframework:spring-context:$spring_version",
+        "org.springframework:spring-context-support:$spring_version",
+        "org.springframework:spring-web:$spring_version",
+        "org.springframework:spring-orm:$spring_version",
+        "org.springframework:spring-aspects:$spring_version",
+        "org.springframework:spring-webmvc:$spring_version",
+        "org.springframework:spring-test:$spring_version"
+]
+
+List quartz = [
+        "org.quartz-scheduler:quartz:2.3.0"
+]
+
+
+
+dependencies {
+    compile apache_commons,servlet,spring,quartz
+    runtime apache_commons,servlet,spring,quartz
+}

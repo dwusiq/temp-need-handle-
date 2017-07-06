@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+     <bean id="mytask" class="com.wusiq.task.MyTask"/>
+
+     <bean id="mytaskJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+          <property name="targetObject" ref="mytask"/>
+          <property name="targetMethod" value="doSomeTask"/>
+          <property name="concurrent" value="false" /><!-- 作业不并发调度 -->
+     </bean>
+
+     <bean id="mytaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+          <property name="jobDetail" ref="mytaskJob"/>
+          <property name="cronExpression" value="10,20,30 12 18 * * ?"/>
+     </bean>
+
+     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+          <property name="triggers">
+               <list>
+                    <ref bean="mytaskTrigger"/>   
+               </list>
+          </property>
+     </bean>
+</beans>
